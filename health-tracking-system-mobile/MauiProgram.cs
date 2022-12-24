@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using health_tracking_system_mobile.Data;
 using health_tracking_system_mobile.Infrastructure;
+using health_tracking_system_mobile.Services;
 using RestSharp;
 
 namespace health_tracking_system_mobile;
@@ -24,11 +25,22 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		var connectionOptions = new ConnectionOptions("https://192.168.0.102:7292");
+		var connectionOptions = new ConnectionOptions("https://192.168.0.111:7088");
 		builder.Services.AddSingleton(connectionOptions);
-		builder.Services.AddSingleton<RestClient>();
-		builder.Services.AddSingleton<WeatherForecastService>();
 
-		return builder.Build();
+
+        var options = new RestClientOptions() {
+            RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+        };
+        var restClient = new RestClient(options);
+        builder.Services.AddSingleton(sp => restClient);
+		builder.Services.AddSingleton<LocalStorage>();
+		builder.Services.AddSingleton<WeatherForecastService>();
+        var translateService = new TranslateService();
+        translateService.LoadFromResourcesAsync().GetAwaiter().GetResult();
+        builder.Services.AddSingleton(translateService);
+        builder.Services.AddSingleton<UserService>();
+
+        return builder.Build();
 	}
 }

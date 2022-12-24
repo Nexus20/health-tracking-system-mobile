@@ -50,12 +50,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="Resources\Raw\en.json" />
+      <Content Remove="Resources\Raw\ua.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="RestSharp" Version="108.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services" />
+      <Folder Include="Models\Results\Auth\" />
     </ItemGroup>
 
 </Project>
