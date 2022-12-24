@@ -2,32 +2,28 @@
 using health_tracking_system_mobile.Models.Requests.Auth;
 using health_tracking_system_mobile.Models.Results.Auth;
 using health_tracking_system_mobile.Models.Results.Users;
+using health_tracking_system_mobile.Services.Abstract;
 using Newtonsoft.Json;
 using RestSharp;
 
 namespace health_tracking_system_mobile.Services;
 
-public class UserService
-{
+public class UserService : BaseHttpService {
     public ProfileResult CurrentUser { get; private set; }
     public bool IsAuthenticated { get; private set; }
 
     private readonly LocalStorage _localStorage;
-    private readonly RestClient _restClient;
-    private readonly string _apiUrl;
 
-    public UserService(RestClient restClient, ConnectionOptions connectionOptions, LocalStorage localStorage) {
-        _restClient = restClient;
+    public UserService(RestClient restClient, ConnectionOptions connectionOptions, LocalStorage localStorage) : base(restClient, connectionOptions) {
         _localStorage = localStorage;
-        _apiUrl = connectionOptions.BaseUrl;
     }
 
     public async Task LoginAsync(LoginRequest requestBody) {
-        var url = _apiUrl + "/api/auth/login";
+        var url = ApiUrl + "/api/auth/login";
         var request = new RestRequest(new Uri(url), Method.Post);
         var json = JsonConvert.SerializeObject(requestBody);
         request.AddStringBody(json, "application/json");
-        var response = await _restClient.ExecuteAsync(request);
+        var response = await RestClient.ExecuteAsync(request);
 
         Console.WriteLine(response.Content);
 
@@ -43,11 +39,10 @@ public class UserService
         IsAuthenticated = true;
     }
 
-    public async Task<ProfileResult> GetCurrentUserProfileAsync()
-    {
-        var url = _apiUrl + "/api/users/profile";
+    public async Task<ProfileResult> GetCurrentUserProfileAsync() {
+        var url = ApiUrl + "/api/users/profile";
         var request = new RestRequest(new Uri(url)).AddHeader("Authorization", "Bearer " + _localStorage[LocalStorageKeys.AuthToken]); ;
-        var response = await _restClient.ExecuteAsync(request);
+        var response = await RestClient.ExecuteAsync(request);
 
         Console.WriteLine(response.Content);
 
@@ -58,8 +53,7 @@ public class UserService
         return JsonConvert.DeserializeObject<ProfileResult>(response.Content);
     }
 
-    public void Logout()
-    {
+    public void Logout() {
         CurrentUser = null;
         IsAuthenticated = false;
         _localStorage.Remove(LocalStorageKeys.AuthToken);

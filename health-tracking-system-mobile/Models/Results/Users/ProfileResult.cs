@@ -14,7 +14,7 @@ public class ProfileResult : BaseResult
     public string Phone { get; set; } = null!;
     public string Email { get; set; } = null!;
     public DateTime BirthDate { get; set; }
-    
+
     public DoctorResult? Doctor { get; set; }
     public PatientResult? Patient { get; set; }
     public PatientCaretakerResult? PatientCaretaker { get; set; }
@@ -22,4 +22,26 @@ public class ProfileResult : BaseResult
 
     public string FullName => $"{FirstName} {LastName}";
     public string BirthDateShort => BirthDate.ToShortDateString();
+    public bool IsHospitalAdmin => HospitalAdministrator != null;
+    public bool IsDoctor => Doctor != null;
+    public bool IsPatient => Patient != null;
+    public bool IsCaretaker => PatientCaretaker != null;
+    public bool IsAssignedToHospital => IsHospitalAdmin || IsDoctor || IsPatient;
+    public bool HasDoctor => Patient != null && !string.IsNullOrWhiteSpace(Patient.DoctorId);
+
+    public string GetHospitalId()
+    {
+        if(Doctor != null)
+            return Doctor.HospitalId;
+
+        if(Patient != null)
+            return Patient.HospitalId;
+
+        return HospitalAdministrator?.HospitalId;
+    }
+
+    public string GetPatientDoctorId()
+    {
+        return Patient?.DoctorId;
+    }
 }

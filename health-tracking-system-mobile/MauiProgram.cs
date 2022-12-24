@@ -40,6 +40,9 @@ public static class MauiProgram
         translateService.LoadFromResourcesAsync().GetAwaiter().GetResult();
         builder.Services.AddSingleton(translateService);
         builder.Services.AddSingleton<UserService>();
+        builder.Services.AddSingleton<HospitalService>();
+        builder.Services.AddSingleton<DoctorService>();
+        builder.Services.AddSingleton<HealthMeasurementsService>();
 
         return builder.Build();
 	}

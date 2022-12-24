@@ -15,7 +15,7 @@ namespace health_tracking_system_mobile.Components.Common
         //[Inject] protected AnimalService AnimalService { get; set; }
         //[Inject] protected PhotoService PhotoService { get; set; }
         [Inject] protected ConnectionOptions ConnectionOptions { get; set; }
-        [Inject] private LocalStorage LocalStorage { get; set; }
+        [Inject] protected LocalStorage LocalStorage { get; set; }
         [Inject] public TranslateService Translate { get; set; }
 
         //public bool IsAdmin => AuthService?.IsAdmin ?? false;
@@ -58,7 +58,7 @@ namespace health_tracking_system_mobile.Components.Common
             StateHasChanged();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Translate.LanguageChanged -= LanguageChanged;
             ClearError();

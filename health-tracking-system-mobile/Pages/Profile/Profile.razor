@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <h2 class="col-12">
-            @CurrentUser.FullName
+            @Translate["welcome"], @CurrentUser.FullName
         </h2>
     </div>
     <div class="row">
@@ -19,4 +19,68 @@
             </div>
         </div>
     </div>
+    @if (CurrentUser.IsAssignedToHospital && HospitalDataLoaded) {
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        @Translate["profile.hospital.header"]
+                    </div>
+                    <div class="card-body">
+                        <div>@Translate["hospital.name"]: @UserHospital.Name</div>
+                        <div>@Translate["hospital.address"]: @UserHospital.Address</div>
+                    </div>
+                    <div class="card-footer d-flex gap-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (CurrentUser.IsPatient)
+    {
+        @if (CurrentUser.HasDoctor && UserDoctorDataLoaded)
+        {
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            @Translate["profile.doctor.header"]
+                        </div>
+                        <div class="card-body">
+                            <div>@UserDoctor.FullName</div>
+                            <div>@Translate["Email"]: @UserDoctor.Email</div>
+                            <div>@Translate["Phone"]: @UserDoctor.Phone</div>
+                        </div>
+                        <div class="card-footer d-flex gap-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">
+                        {{'profile.patient-doctor.no-doctor-alert' | translate}}
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <h2 class="col-12 mb-3">
+                @Translate["profile.health-measurements.header"]
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="alert alert-info">
+                    @Translate["profile.health-measurements.heart-rate"]: @CurrentHeartRate
+                </div>
+            </div>
+            <div class="col-12">
+                <Chart @ref="_lineChart" Config="_lineChartConfig"></Chart>
+            </div>
+        </div>
+    }
 </div>
