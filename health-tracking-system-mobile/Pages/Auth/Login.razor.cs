@@ -7,7 +7,8 @@ namespace health_tracking_system_mobile.Pages.Auth
         public LoginRequest LoginModel { get; set; } = new LoginRequest()
         {
             // Email = "test13hadmin@ht.com", // hospital admin
-            Email = "test13p1@ht.com", // patient
+            // Email = "test13p1@ht.com", // patient without caretaker
+            Email = "test777patient@ht.com", // patient with caretaker
             Password = "_QGrXyvcmTD4aVQJ_",
         };
 

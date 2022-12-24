@@ -62,7 +62,34 @@
             <div class="row">
                 <div class="col-12">
                     <div class="alert alert-warning" role="alert">
-                        {{'profile.patient-doctor.no-doctor-alert' | translate}}
+                        @Translate["profile.patient-doctor.no-doctor-alert"]
+                    </div>
+                </div>
+            </div>
+        }
+        @if (CurrentUser.HasCaretaker && UserCaretakerDataLoaded) {
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            @Translate["profile.patient-caretaker.header"]
+                        </div>
+                        <div class="card-body">
+                            <div>@UserCaretaker.FullName</div>
+                            <div>@Translate["Email"]: @UserCaretaker.Email</div>
+                            <div>@Translate["Phone"]: @UserCaretaker.Phone</div>
+                        </div>
+                        <div class="card-footer d-flex gap-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else {
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">
+                        @Translate["profile.patient-caretaker.no-caretaker-alert"]
                     </div>
                 </div>
             </div>

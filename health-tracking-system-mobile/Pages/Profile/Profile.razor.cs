@@ -3,6 +3,7 @@ using ChartJs.Blazor.Common;
 using ChartJs.Blazor.LineChart;
 using health_tracking_system_mobile.Models.Results.Doctors;
 using health_tracking_system_mobile.Models.Results.Hospitals;
+using health_tracking_system_mobile.Models.Results.PatientCaretakers;
 using health_tracking_system_mobile.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -16,12 +17,15 @@ public partial class Profile {
     [Inject] private HospitalService HospitalService { get; set; }
     [Inject] private DoctorService DoctorService { get; set; }
     [Inject] private HealthMeasurementsService HealthMeasurementsService { get; set; }
+    [Inject] private PatientCaretakerService PatientCaretakerService { get; set; }
 
     public HospitalResult UserHospital { get; set; }
     public DoctorResult UserDoctor { get; set; }
+    public PatientCaretakerResult UserCaretaker { get; set; }
 
-    public bool HospitalDataLoaded { get; set; }
-    public bool UserDoctorDataLoaded { get; set; }
+    public bool HospitalDataLoaded { get; private set; }
+    public bool UserDoctorDataLoaded { get; private set; }
+    public bool UserCaretakerDataLoaded { get; private set; }
 
     [Parameter] public int CurrentHeartRate { get; set; }
 
@@ -32,6 +36,7 @@ public partial class Profile {
         await StartLoadingHealthMeasurements();
         await LoadUserHospitalAsync();
         await LoadUserDoctorAsync();
+        await LoadUserCaretakerAsync();
         await base.OnInitializedAsync();
     }
 
@@ -53,6 +58,16 @@ public partial class Profile {
         var doctorId = CurrentUser.GetPatientDoctorId();
         UserDoctor = await DoctorService.GetDoctorByIdAsync(doctorId);
         UserDoctorDataLoaded = true;
+    }
+
+    private async Task LoadUserCaretakerAsync() {
+
+        if (!CurrentUser.IsPatient || !CurrentUser.HasCaretaker)
+            return;
+
+        var caretakerId = CurrentUser.GetPatientCaretakerId();
+        UserCaretaker = await PatientCaretakerService.GetPatientCaretakerByIdAsync(caretakerId);
+        UserCaretakerDataLoaded = true;
     }
 
     private async Task StartLoadingHealthMeasurements()

@@ -11,6 +11,8 @@
   "profile.health-measurements.header": "Your health measurements",
   "profile.health-measurements.heart-rate": "Heart rate",
   "profile.patient-doctor.no-doctor-alert": "It looks like you haven't been assigned to any doctor yet. Or, perhaps you are being transferred to another doctor.",
+  "profile.patient-caretaker.header": "Your caretaker",
+  "profile.patient-caretaker.no-caretaker-alert": "You don't have a caretaker yet.",
   "hospital.name": "Name",
   "hospital.address": "Address",
   "Users": "Users",

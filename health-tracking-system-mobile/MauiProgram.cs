@@ -42,6 +42,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<HospitalService>();
         builder.Services.AddSingleton<DoctorService>();
+        builder.Services.AddSingleton<PatientCaretakerService>();
         builder.Services.AddSingleton<HealthMeasurementsService>();
 
         return builder.Build();
