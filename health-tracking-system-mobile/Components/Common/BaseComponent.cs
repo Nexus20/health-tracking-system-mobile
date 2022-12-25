@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace health_tracking_system_mobile.Components.Common
 {
-    public class BaseComponent : ComponentBase, IDisposable
+    public class BaseComponent : ComponentBase, IDisposable, IAsyncDisposable
     {
         private readonly List<string> _errors = new List<string>();
         private readonly List<string> _messages = new List<string>();
@@ -63,6 +63,13 @@ namespace health_tracking_system_mobile.Components.Common
             Translate.LanguageChanged -= LanguageChanged;
             ClearError();
             ClearMessage();
+        }
+
+        public virtual ValueTask DisposeAsync() {
+            Translate.LanguageChanged -= LanguageChanged;
+            ClearError();
+            ClearMessage();
+            return ValueTask.CompletedTask;
         }
 
         //protected GenericService<TEntity> GetGenericService<TEntity>() where TEntity : BaseModel

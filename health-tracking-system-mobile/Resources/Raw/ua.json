@@ -5,6 +5,7 @@
     "EN": "Англійська"
   },
   "welcome": "Вітаємо",
+  "common.details": "Детальніше",
   "profile.personal.header": "Ваші особісті дані",
   "profile.hospital.header": "Ваш медичний заклад",
   "profile.doctor.header": "Ваш лікар",
@@ -13,6 +14,8 @@
   "profile.patient-doctor.no-doctor-alert": "Здається, вас ще не записали до жодного лікаря. Або, можливо, вас переводять до іншого лікаря.",
   "profile.patient-caretaker.header": "Ваш доглядач",
   "profile.patient-caretaker.no-caretaker-alert": "У вас ще немає доглядача.",
+  "profile.patients.header": "Ваші пацієнти",
+  "profile.patients.no-patients-warning": "Схоже, що зараз у вас немає закріплених за вами пацієнтів.",
   "hospital.name": "Назва",
   "hospital.address": "Адреса",
   "Users": "Користувачі",

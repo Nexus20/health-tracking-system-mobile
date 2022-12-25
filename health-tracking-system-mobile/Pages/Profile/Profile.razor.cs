@@ -4,6 +4,7 @@ using ChartJs.Blazor.LineChart;
 using health_tracking_system_mobile.Models.Results.Doctors;
 using health_tracking_system_mobile.Models.Results.Hospitals;
 using health_tracking_system_mobile.Models.Results.PatientCaretakers;
+using health_tracking_system_mobile.Models.Results.Patients;
 using health_tracking_system_mobile.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -22,10 +23,12 @@ public partial class Profile {
     public HospitalResult UserHospital { get; set; }
     public DoctorResult UserDoctor { get; set; }
     public PatientCaretakerResult UserCaretaker { get; set; }
+    public List<PatientResult> DoctorPatients { get; set; }
 
     public bool HospitalDataLoaded { get; private set; }
     public bool UserDoctorDataLoaded { get; private set; }
     public bool UserCaretakerDataLoaded { get; private set; }
+    public bool DoctorPatientsDataLoaded { get; private set; }
 
     [Parameter] public int CurrentHeartRate { get; set; }
 
@@ -37,7 +40,17 @@ public partial class Profile {
         await LoadUserHospitalAsync();
         await LoadUserDoctorAsync();
         await LoadUserCaretakerAsync();
+        await LoadDoctorPatientsAsync();
         await base.OnInitializedAsync();
+    }
+
+    private async Task LoadDoctorPatientsAsync() {
+
+        if (!CurrentUser.IsDoctor)
+            return;
+
+        DoctorPatients = await DoctorService.GetDoctorPatientsByIdAsync(CurrentUser.DoctorId);
+        DoctorPatientsDataLoaded = true;
     }
 
     private async Task LoadUserHospitalAsync() {
@@ -99,12 +112,6 @@ public partial class Profile {
         });
     }
 
-    public override void Dispose()
-    {
-        HealthMeasurementsService.DisconnectFromHubAsync().Wait();
-        base.Dispose();
-    }
-
     private void InitializeEcgChart() {
         _lineChartConfig = new LineConfig() {
             Options = new LineOptions() {
@@ -124,5 +131,11 @@ public partial class Profile {
         };
 
         _lineChartConfig.Data.Datasets.Add(lineDataset);
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        await HealthMeasurementsService.DisconnectFromHubAsync();
+        await base.DisposeAsync();
     }
 }

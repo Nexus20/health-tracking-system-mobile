@@ -36,6 +36,50 @@
             </div>
         </div>
     }
+    @if (CurrentUser.IsDoctor && DoctorPatientsDataLoaded)
+    {
+        <div class="row mt-3 mb-3">
+            <h2 class="col-12">@Translate["profile.patients.header"]:</h2>
+        </div>
+
+        @if (DoctorPatients.Count > 0)
+        {
+            <div class="row">
+                @foreach (var doctorPatient in DoctorPatients)
+                {
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                @doctorPatient.FullName
+                            </div>
+                            <div class="card-body">
+                                <div>@Translate["Email"]: @doctorPatient.Email</div>
+                                <div>@Translate["Phone"]: @doctorPatient.Phone</div>
+                                <div>@Translate["Dob"]: @doctorPatient.BirthDate</div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/patients/@doctorPatient.Id" class="btn btn-primary">@Translate["common.details"]</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-3">
+                        <div class="card-header">Your patients</div>
+                        <div class="card-body">
+                            <h3>@Translate["profile.patients.no-patients-warning"]</h3>
+                        </div>
+                        <div class="card-footer"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
     @if (CurrentUser.IsPatient)
     {
         @if (CurrentUser.HasDoctor && UserDoctorDataLoaded)

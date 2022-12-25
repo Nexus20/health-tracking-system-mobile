@@ -29,6 +29,7 @@ public class ProfileResult : BaseResult
     public bool IsAssignedToHospital => IsHospitalAdmin || IsDoctor || IsPatient;
     public bool HasDoctor => Patient != null && !string.IsNullOrWhiteSpace(Patient.DoctorId);
     public bool HasCaretaker => Patient != null && !string.IsNullOrWhiteSpace(Patient.PatientCaretakerId);
+    public string DoctorId => Doctor?.Id;
 
     public string GetHospitalId()
     {
