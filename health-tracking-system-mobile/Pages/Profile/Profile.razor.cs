@@ -24,15 +24,17 @@ public partial class Profile {
     public DoctorResult UserDoctor { get; set; }
     public PatientCaretakerResult UserCaretaker { get; set; }
     public List<PatientResult> DoctorPatients { get; set; }
+    public List<PatientResult> CaretakerPatients { get; set; }
 
     public bool HospitalDataLoaded { get; private set; }
     public bool UserDoctorDataLoaded { get; private set; }
     public bool UserCaretakerDataLoaded { get; private set; }
     public bool DoctorPatientsDataLoaded { get; private set; }
+    public bool CaretakerPatientsDataLoaded { get; private set; }
 
-    [Parameter] public int CurrentHeartRate { get; set; }
+    public int CurrentHeartRate { get; set; }
 
-    private int _ecgDataCount = 0;
+    private int _ecgDataCount;
 
     protected override async Task OnInitializedAsync()
     {
@@ -41,7 +43,18 @@ public partial class Profile {
         await LoadUserDoctorAsync();
         await LoadUserCaretakerAsync();
         await LoadDoctorPatientsAsync();
+
+        if (CurrentUser.IsCaretaker)
+        {
+            await LoadCaretakerPatientsAsync();
+        }
+
         await base.OnInitializedAsync();
+    }
+
+    private async Task LoadCaretakerPatientsAsync() {
+        CaretakerPatients = await PatientCaretakerService.GetCaretakerPatientsByIdAsync(CurrentUser.CaretakerId);
+        CaretakerPatientsDataLoaded = true;
     }
 
     private async Task LoadDoctorPatientsAsync() {

@@ -1,10 +1,10 @@
 {
-  "SavePets": "Збережи улюбленців",
   "LANG": {
     "UA": "Українська",
     "EN": "Англійська"
   },
   "welcome": "Вітаємо",
+  "guest": "Гість",
   "common.details": "Детальніше",
   "profile.personal.header": "Ваші особісті дані",
   "profile.hospital.header": "Ваш медичний заклад",
@@ -18,7 +18,15 @@
   "profile.patients.no-patients-warning": "Схоже, що зараз у вас немає закріплених за вами пацієнтів.",
   "hospital.name": "Назва",
   "hospital.address": "Адреса",
-  "Users": "Користувачі",
+  "patient-profile.header": "Профіль пацієнта",
+  "patient-profile.hospital.header": "Мед. заклад пацієнта",
+  "patient-profile.doctor.header": "Лікар пацієнта",
+  "patient-profile.doctor.no-doctor-alert": "Цей пацієнт ще не був призначений до жодного лікаря.",
+  "patient-profile.caretaker.header": "Доглядач пацієнта",
+  "patient-profile.caretaker.no-caretaker-alert": "У цього пацієнта поки що не має доглядача.",
+  "patient-profile.health-measurements.header": "Показники здоров'я",
+  "patient-profile.health-measurements.heart-rate": "ЧСС",
+  "Patients": "Пацієнти",
   "Logout": "Вийти",
   "Register": "Зареєструватись",
   "Login": "Увійти",

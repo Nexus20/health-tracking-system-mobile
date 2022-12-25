@@ -1,6 +1,123 @@
 ﻿@page "/patients/{PatientId}"
 @inherits health_tracking_system_mobile.Components.Common.BaseComponent
 
-<h3>Patient view</h3>
+@if (PatientDataLoaded) {
+    <div class="container">
+        <div class="row">
+            <h2 class="col-12">
+                @Translate["patient-profile.header"]
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-header">@Patient.FullName</div>
+                    <div class="card-body">
+                        <div>@Translate["Email"]: @Patient.Email</div>
+                        <div>@Translate["Phone"]: @Patient.Phone</div>
+                        <div>@Translate["Dob"]: @Patient.BirthDateShort</div>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
 
+        @if (PatientHospitalDataLoaded) {
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            @Translate["patient-profile.hospital.header"]
+                        </div>
+                        <div class="card-body">
+                            <div>@Translate["hospital.name"]: @PatientHospital.Name</div>
+                            <div>@Translate["hospital.address"]: @PatientHospital.Address</div>
+                        </div>
+                        <div class="card-footer d-flex gap-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (CurrentUser.IsHospitalAdmin || CurrentUser.IsCaretaker) {
+            @if (PatientDoctorDataLoaded) {
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                @Translate["patient-profile.doctor.header"]
+                            </div>
+                            <div class="card-body">
+                                <div>@PatientDoctor.FullName</div>
+                                <div>@Translate["Email"]: @PatientDoctor.Email</div>
+                                <div>@Translate["Phone"]: @PatientDoctor.Phone</div>
+                            </div>
+                            <div class="card-footer d-flex gap-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else {
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                            @Translate["patient-profile.doctor.no-doctor-alert"]
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (CurrentUser.IsHospitalAdmin || CurrentUser.IsDoctor) {
+            @if (PatientCaretakerDataLoaded) {
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                @Translate["patient-profile.caretaker.header"]
+                            </div>
+                            <div class="card-body">
+                                <div>@PatientCaretaker.FullName</div>
+                                <div>@Translate["Email"]: @PatientCaretaker.Email</div>
+                                <div>@Translate["Phone"]: @PatientCaretaker.Phone</div>
+                            </div>
+                            <div class="card-footer d-flex gap-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else {
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                            @Translate["patient-profile.caretaker.no-caretaker-alert"]
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (CurrentUser.IsDoctor || CurrentUser.IsCaretaker) {
+            <div class="row">
+                <h2 class="col-12 mb-3">
+                    @Translate["patient-profile.health-measurements.header"]
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="alert alert-info">
+                        @Translate["patient-profile.health-measurements.heart-rate"]: @CurrentHeartRate
+                    </div>
+                </div>
+                <div class="col-12">
+                    <Chart @ref="_lineChart" Config="_lineChartConfig"></Chart>
+                </div>
+            </div>
+        }
+
+    </div>
+}
 

@@ -1,10 +1,10 @@
 {
-  "SavePets": "Save Pets",
   "LANG": {
     "UA": "Ukranian",
     "EN": "English"
   },
   "welcome": "Welcome",
+  "guest": "Guest",
   "common.details": "Details",
   "profile.personal.header": "Your personal information",
   "profile.hospital.header": "Your hospital info",
@@ -18,7 +18,15 @@
   "profile.patients.no-patients-warning": "Seems like now you don't have any patients assigned to you.",
   "hospital.name": "Name",
   "hospital.address": "Address",
-  "Users": "Users",
+  "patient-profile.header": "Patient profile",
+  "patient-profile.hospital.header": "Patient's hospital",
+  "patient-profile.doctor.header": "Patient's doctor",
+  "patient-profile.doctor.no-doctor-alert": "This patient hasn't been assigned to any doctor yet.",
+  "patient-profile.caretaker.header": "Patient's caretaker",
+  "patient-profile.caretaker.no-caretaker-alert": "This patient doesn't have a caretaker yet.",
+  "patient-profile.health-measurements.header": "Patient's measurements",
+  "patient-profile.health-measurements.heart-rate": "Heart rate",
+  "Patients": "Patients",
   "Logout": "Logout",
   "Register": "Register",
   "Login": "Login",

@@ -1,5 +1,6 @@
 ﻿using health_tracking_system_mobile.Infrastructure;
 using health_tracking_system_mobile.Models.Results.PatientCaretakers;
+using health_tracking_system_mobile.Models.Results.Patients;
 using health_tracking_system_mobile.Services.Abstract;
 using Newtonsoft.Json;
 using RestSharp;
@@ -32,5 +33,24 @@ public class PatientCaretakerService : BaseHttpService {
         }
 
         return JsonConvert.DeserializeObject<PatientCaretakerResult>(response.Content);
+    }
+
+    public async Task<List<PatientResult>> GetCaretakerPatientsByIdAsync(string caretakerId)
+    {
+        var url = $"{ApiUrl}/api/patientCaretaker/{caretakerId}/patients";
+        var request = new RestRequest(new Uri(url));
+
+        if (_userService.IsAuthenticated)
+            request = request.AddHeader("Authorization", "Bearer " + _localStorage[LocalStorageKeys.AuthToken]);
+
+        var response = await RestClient.ExecuteAsync(request);
+
+        Console.WriteLine(response.Content);
+
+        if (!response.IsSuccessful || string.IsNullOrWhiteSpace(response.Content)) {
+            throw new ApplicationException();
+        }
+
+        return JsonConvert.DeserializeObject<List<PatientResult>>(response.Content);
     }
 }

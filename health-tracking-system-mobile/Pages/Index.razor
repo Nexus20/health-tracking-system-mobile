@@ -1,7 +1,14 @@
 ﻿@page "/"
+@inherits health_tracking_system_mobile.Components.Common.BaseComponent
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h1>
+    @Translate["welcome"],
+    @if (UserService.IsAuthenticated)
+    {
+        @CurrentUser.FullName
+    }
+    else
+    {
+        @Translate["guest"]
+    }
+</h1>

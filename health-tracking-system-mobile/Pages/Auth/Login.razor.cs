@@ -9,7 +9,8 @@ namespace health_tracking_system_mobile.Pages.Auth
             // Email = "test13hadmin@ht.com", // hospital admin
             // Email = "test13p1@ht.com", // patient without caretaker
             // Email = "test777patient@ht.com", // patient with caretaker
-            Email = "test777doctor@ht.com", // doctor
+            // Email = "test777doctor@ht.com", // doctor
+            Email = "test777pcare@ht.com", // caretaker
             Password = "_QGrXyvcmTD4aVQJ_",
         };
 

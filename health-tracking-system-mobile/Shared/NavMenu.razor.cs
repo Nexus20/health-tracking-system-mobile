@@ -2,13 +2,12 @@
 {
     public partial class NavMenu
     {
-        private bool collapseNavMenu = true;
-        private string NavMenuCssClass => collapseNavMenu ? "collapse" : string.Empty;
-        //private int? CurrentUserId => AuthService?.CurrentUser?.Id;
+        private bool _collapseNavMenu = true;
+        private string NavMenuCssClass => _collapseNavMenu ? "collapse" : string.Empty;
 
         private void ToggleNavMenu()
         {
-            collapseNavMenu = !collapseNavMenu;
+            _collapseNavMenu = !_collapseNavMenu;
         }
 
         private Task ChangeLanguage(string language)

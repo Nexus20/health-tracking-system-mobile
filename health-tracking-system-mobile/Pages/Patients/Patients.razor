@@ -1,0 +1,31 @@
+﻿@page "/patients"
+@inherits health_tracking_system_mobile.Components.Common.BaseComponent
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-12">@Translate["Patients"]</h2>
+    </div>
+    <div class="row">
+        @if (PatientsDataLoaded)
+        {
+            @foreach (var patient in PatientsData)
+            {
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            @patient.FullName
+                        </div>
+                        <div class="card-body">
+                            <div>@Translate["Email"]: @patient.Email</div>
+                            <div>@Translate["Phone"]: @patient.Phone</div>
+                            <div>@Translate["Dob"]: @patient.BirthDateShort</div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/patients/@patient.Id" class="btn btn-primary">@Translate["common.details"]</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
